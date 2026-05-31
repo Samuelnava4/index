@@ -13,22 +13,27 @@
         <div class="header-top">
             <div class="logo">Aroma<span>Premium</span></div>
             
-            <!-- Buscador en tiempo real conectado al JS -->
-            <div class="buscador-contenedor">
-                <input type="text" id="input-busqueda" placeholder="Buscar por nombre o marca..." oninput="buscarProductos()">
-                <span class="icono-buscar">🔍</span>
-            </div>
-
-            <!-- Botón de la Canasta -->
+            <!-- Botón de la Canasta (Compacto para que no se amontone en móvil) -->
             <div class="contenedor-cart-btn">
                 <button class="btn-carrito" onclick="toggleCarrito()">
-                    <span class="icono-cart">🛒</span> Canasta <span id="contador-carrito" class="contador">0</span>
+                    <span class="icono-cart">🛒</span> <span id="contador-carrito" class="contador">0</span>
                 </button>
             </div>
         </div>
 
-        <!-- Barra de Filtros de Navegación -->
-        <nav class="barra-filtros">
+        <!-- Buscador en tiempo real conectado al JS -->
+        <div class="buscador-contenedor">
+            <input type="text" id="input-busqueda" placeholder="Buscar por nombre o marca..." oninput="buscarProductos()">
+            <span class="icono-buscar">🔍</span>
+        </div>
+
+        <!-- NUEVO: Botón de menú de 3 líneas que controla el despliegue en celulares -->
+        <button id="btn-hamburguesa" class="btn-hamburguesa" onclick="toggleMenuMobile()">
+            ☰ Mostrar Categorías
+        </button>
+
+        <!-- Barra de Filtros de Navegación (Ahora tiene el id correspondiente para JS) -->
+        <nav class="barra-filtros" id="barra-filtros">
             <button class="btn-filtro activo" data-filtro="todos" onclick="filtrarCategoria('todos', this)">Todos</button>
             <button class="btn-filtro" data-filtro="hombre" onclick="filtrarCategoria('hombre', this)">Hombre</button>
             <button class="btn-filtro" data-filtro="mujer" onclick="filtrarCategoria('mujer', this)">Mujer</button>
@@ -76,7 +81,7 @@
             <p id="contador-resultados" class="contador-resultados"></p>
         </div>
         <div class="catalogo-grid" id="catalogo">
-            <!-- Las tarjetas de los perfumes se cargarán aquí desde el script.js -->
+            <!-- Las tarjetas de los perfumes se cargarán aquí desde el js.js -->
         </div>
     </main>
 

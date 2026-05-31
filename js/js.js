@@ -42,7 +42,7 @@ const perfumes = [
     { id: 30, nombre: "Amber Oud Ruby Edition", marca: "Al Haramain", precio: 340000, categoria: "Unisex", tipo: "original", promocion: true, precioAnterior: 410000, imagen: "https://perfumesreal.com/cdn/shop/files/AlHaramainAmberOudRubyEdition.png?v=1707913506&width=500" },
     { id: 31, nombre: "Amber Oud Carbon Edition", marca: "Al Haramain", precio: 290000, categoria: "Hombre", tipo: "original", promocion: false, imagen: "https://perfumesreal.com/cdn/shop/files/AlHaramainAmberOudCarbonEdition.png?v=1707913217&width=500" },
 
-    // --- PERFUMES DE DISEÑADOR COMUNES (CALIDAD 1.1 DE ALTA DEMANDA) ---
+    // --- PERFUMES DE DISEÑADOR COMUNES (CALIDAD 1.1) ---
     { id: 32, nombre: "Sauvage Dior (Espejo)", marca: "Dior", precio: 135000, categoria: "Hombre", tipo: "1.1", promocion: false, imagen: "https://images.unsplash.com/photo-1592945403244-b3fbafd7f539?auto=format&fit=crop&w=500&q=80" },
     { id: 33, nombre: "Bleu de Chanel (Espejo)", marca: "Chanel", precio: 140000, categoria: "Hombre", tipo: "1.1", promocion: false, imagen: "https://images.unsplash.com/photo-1523293182086-7651a899d37f?auto=format&fit=crop&w=500&q=80" },
     { id: 34, nombre: "One Million Gold", marca: "Paco Rabanne", precio: 125000, categoria: "Hombre", tipo: "1.1", promocion: true, precioAnterior: 160000, imagen: "https://images.unsplash.com/photo-1541643600914-78b084683601?auto=format&fit=crop&w=500&q=80" },
@@ -88,7 +88,7 @@ function mostrarPerfumes(lista) {
     lista.forEach((perfume, index) => {
         const tarjeta = document.createElement("div");
         tarjeta.classList.add("tarjeta-perfume");
-        tarjeta.style.animationDelay = `${index * 0.02}s`; // Animación más rápida para listas largas
+        tarjeta.style.animationDelay = `${index * 0.02}s`; 
 
         let badgePromo = perfume.promocion ? `<div class="badge-promo">Oferta</div>` : "";
         let precioHTML = perfume.promocion 
@@ -110,7 +110,7 @@ function mostrarPerfumes(lista) {
                 </div>
                 <div>
                     ${precioHTML}
-                    <button class="btn-agregar" onclick="agregarAlCarrito(${perfume.id})">Agregar a Canasta</button>
+                    <button class="btn-agregar" onclick="agregarAlCarrito(${perfume.id})">Agregar</button>
                 </div>
             </div>
         `;
@@ -127,19 +127,26 @@ function filtrarCategoria(categoria, elemento) {
     filtroActual = { tipoFiltro: "categoria", valor: categoria };
     cambiarBotonActivo(elemento);
     ejecutarFiltroCombinado();
+    
+    // Cierra el menú desplegable automáticamente en celulares tras elegir una opción
+    document.getElementById("barra-filtros").classList.remove("open-menu");
+    document.getElementById("btn-hamburguesa").innerText = "☰ Mostrar Categorías";
 }
 
 function filtrarTipo(tipo, elemento) {
     filtroActual = { tipoFiltro: "tipo", valor: tipo };
     cambiarBotonActivo(elemento);
     ejecutarFiltroCombinado();
+    
+    // Cierra el menú desplegable automáticamente en celulares tras elegir una opción
+    document.getElementById("barra-filtros").classList.remove("open-menu");
+    document.getElementById("btn-hamburguesa").innerText = "☰ Mostrar Categorías";
 }
 
 function buscarProductos() {
     ejecutarFiltroCombinado();
 }
 
-// LÓGICA DE FILTRO MEJORADA CON SOPORTE PARA "UNISEX"
 function ejecutarFiltroCombinado() {
     const textoBusqueda = document.getElementById("input-busqueda").value.toLowerCase().trim();
     const titulo = document.getElementById("titulo-seccion");
@@ -151,7 +158,6 @@ function ejecutarFiltroCombinado() {
             listaFiltrada = listaFiltrada.filter(p => p.promocion);
             titulo.innerText = "Promociones Especiales";
         } else if (filtroActual.valor !== "todos") {
-            // Ajuste importante: Si busca Hombre o Mujer, también arrastra los "Unisex" correspondientes
             listaFiltrada = listaFiltrada.filter(p => 
                 p.categoria.toLowerCase() === filtroActual.valor.toLowerCase() || 
                 p.categoria.toLowerCase() === "unisex"
@@ -255,6 +261,20 @@ function enviarWhatsApp() {
     
     const url = `https://wa.me/573012503546?text=${encodeURIComponent(mensaje)}`;
     window.open(url, '_blank');
+}
+
+// --- NUEVA FUNCIÓN INTERACTIVA: CONTROL DEL MENÚ PARA CELULARES ---
+function toggleMenuMobile() {
+    const barraFiltros = document.getElementById("barra-filtros");
+    const btnHamburguesa = document.getElementById("btn-hamburguesa");
+    
+    barraFiltros.classList.toggle("open-menu");
+    
+    if (barraFiltros.classList.contains("open-menu")) {
+        btnHamburguesa.innerText = "✕ Cerrar Categorías";
+    } else {
+        btnHamburguesa.innerText = "☰ Mostrar Categorías";
+    }
 }
 
 window.onload = () => {

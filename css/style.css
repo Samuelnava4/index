@@ -119,11 +119,24 @@ header {
     font-size: 12px;
 }
 
-.btn-carrito:hover .contador {
+/* BOTÓN HAMBURGUESA (Oculto en PC por defecto) */
+.btn-hamburguesa {
+    display: none;
     background-color: var(--color-oscuro);
+    color: var(--color-blanco);
+    border: none;
+    width: 90%;
+    margin: 5px auto 10px auto;
+    padding: 11px;
+    font-size: 14px;
+    font-weight: 600;
+    border-radius: 6px;
+    cursor: pointer;
+    text-align: center;
+    transition: var(--transicion);
 }
 
-/* BARRA DE FILTROS */
+/* BARRA DE FILTROS EN PC */
 .barra-filtros {
     display: flex;
     justify-content: center;
@@ -160,10 +173,6 @@ header {
 .btn-filtro.btn-promo {
     color: var(--color-rojo);
     font-weight: 600;
-}
-.btn-filtro.btn-promo.activo {
-    background-color: var(--color-rojo);
-    color: white;
 }
 
 /* BANNER */
@@ -268,7 +277,7 @@ main { padding: 40px 8%; }
 
 .precio { font-size: 19px; font-weight: 700; color: var(--color-oscuro); margin-bottom: 15px; }
 
-/* BOTÓN DINÁMICO AGREGAR */
+/* BOTÓN DIÁMICO AGREGAR */
 .btn-agregar {
     background-color: var(--color-oscuro);
     color: var(--color-blanco);
@@ -286,7 +295,6 @@ main { padding: 40px 8%; }
     background-color: var(--color-primario);
 }
 
-/* BADGES */
 .badge-promo {
     position: absolute;
     top: 15px;
@@ -328,7 +336,6 @@ main { padding: 40px 8%; }
 
 .carrito-header h3 { font-size: 20px; font-weight: 700; }
 .btn-cerrar { background: none; border: none; font-size: 32px; cursor: pointer; color: var(--color-gris-oscuro); }
-.btn-cerrar:hover { color: var(--color-oscuro); }
 
 .carrito-items { flex-grow: 1; padding: 24px; overflow-y: auto; }
 .carrito-vacio { text-align: center; color: #a0a0a0; margin-top: 60px; font-size: 15px;}
@@ -365,14 +372,147 @@ main { padding: 40px 8%; }
 .btn-vaciar { flex: 1; background-color: var(--color-gris-claro); border: none; padding: 14px; border-radius: 8px; font-weight: 600; cursor: pointer; transition: var(--transicion); }
 .btn-vaciar:hover { background-color: #e2e2e6; }
 .btn-pagar { flex: 2; background-color: var(--color-primario); color: white; border: none; padding: 14px; border-radius: 8px; font-weight: 600; cursor: pointer; transition: var(--transicion); }
-.btn-pagar:hover { background-color: var(--color-primario-hover); }
 
 footer { text-align: center; padding: 25px; background-color: var(--color-oscuro); color: #777; font-size: 13px; margin-top: 60px; }
 
-/* Responsivo para móviles */
+
+/* =======================================================
+   REGLAS EXCLUSIVAS PARA ADAPTACIÓN A CELULARES
+   ======================================================= */
 @media (max-width: 768px) {
-    .header-top { flex-direction: column; gap: 15px; padding: 15px 4%; }
-    .buscador-contenedor { width: 100%; }
-    .carrito-sidebar { width: 100%; right: -100%; }
-    main { padding: 30px 4%; }
+    /* Logo y carrito alineados perfectamente arriba */
+    .header-top {
+        display: flex;
+        flex-direction: row !important;
+        justify-content: space-between;
+        align-items: center;
+        padding: 12px 5% !important;
+        border-bottom: none;
+    }
+
+    .logo {
+        font-size: 20px;
+    }
+
+    .btn-carrito {
+        padding: 8px 15px;
+        font-size: 14px;
+    }
+
+    /* Buscador compacto */
+    .buscador-contenedor {
+        width: 90%;
+        margin: 0 auto 10px auto;
+    }
+    
+    .buscador-contenedor input {
+        padding: 10px 15px;
+        font-size: 14px;
+    }
+
+    /* Mostrar botón colapsable de categorías */
+    .btn-hamburguesa {
+        display: block;
+    }
+
+    /* Convertir el menú de filtros en vertical y ocultarlo por defecto */
+    .barra-filtros {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        max-height: 0;
+        overflow: hidden;
+        padding: 0 5%;
+        background-color: var(--color-blanco);
+        transition: max-height 0.3s ease-out;
+        gap: 6px;
+    }
+
+    /* Clase activa que inyectará JavaScript al presionar el botón */
+    .barra-filtros.open-menu {
+        max-height: 380px; 
+        padding: 10px 5% 15px 5%;
+        border-top: 1px solid rgba(0,0,0,0.05);
+        border-bottom: 1px solid rgba(0,0,0,0.05);
+    }
+
+    .btn-filtro {
+        width: 100%;
+        text-align: center;
+        padding: 11px;
+        border-radius: 8px;
+        background-color: var(--color-gris-claro);
+        font-size: 14px;
+    }
+
+    /* Redimensionar el banner para que no tape espacio en pantalla */
+    .banner-promos {
+        height: 150px;
+    }
+    
+    .promo-content h2 {
+        font-size: 20px;
+    }
+    
+    .promo-content p {
+        font-size: 13px;
+    }
+
+    /* El carrito lateral ocupará toda la pantalla en celulares */
+    .carrito-sidebar {
+        width: 100%;
+        right: -100%;
+    }
+
+    /* AJUSTE BRUTAL: El catálogo se dividirá en 2 columnas muy estéticas en vez de 1 sola gigante */
+    main {
+        padding: 25px 3%;
+    }
+
+    .main-header {
+        flex-direction: column;
+        gap: 5px;
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+    .catalogo-grid {
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 12px;
+    }
+
+    .img-contenedor {
+        height: 160px; /* Fotos más proporcionadas en el celular */
+    }
+
+    .info-perfume {
+        padding: 12px;
+    }
+
+    .info-perfume h3 {
+        font-size: 14px;
+        line-height: 1.2;
+    }
+
+    .marca {
+        font-size: 11px;
+        margin-bottom: 4px;
+    }
+
+    .tipo-producto {
+        font-size: 9px;
+        padding: 2px 6px;
+        margin-bottom: 8px;
+    }
+
+    .precio {
+        font-size: 15px;
+        margin-bottom: 10px;
+    }
+
+    .btn-agregar {
+        padding: 10px;
+        font-size: 12px;
+        border-radius: 6px;
+    }
 }
