@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AromaPremium | Tienda Virtual</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+
+    <!-- Encabezado Principal -->
+    <header>
+        <div class="header-top">
+            <div class="logo">Aroma<span>Premium</span></div>
+            
+            <!-- Buscador en tiempo real conectado al JS -->
+            <div class="buscador-contenedor">
+                <input type="text" id="input-busqueda" placeholder="Buscar por nombre o marca..." oninput="buscarProductos()">
+                <span class="icono-buscar">🔍</span>
+            </div>
+
+            <!-- Botón de la Canasta -->
+            <div class="contenedor-cart-btn">
+                <button class="btn-carrito" onclick="toggleCarrito()">
+                    <span class="icono-cart">🛒</span> Canasta <span id="contador-carrito" class="contador">0</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Barra de Filtros de Navegación -->
+        <nav class="barra-filtros">
+            <button class="btn-filtro activo" data-filtro="todos" onclick="filtrarCategoria('todos', this)">Todos</button>
+            <button class="btn-filtro" data-filtro="hombre" onclick="filtrarCategoria('hombre', this)">Hombre</button>
+            <button class="btn-filtro" data-filtro="mujer" onclick="filtrarCategoria('mujer', this)">Mujer</button>
+            <button class="btn-filtro" data-filtro="original" onclick="filtrarTipo('original', this)">Originales</button>
+            <button class="btn-filtro" data-filtro="1.1" onclick="filtrarTipo('1.1', this)">Calidad 1.1</button>
+            <button class="btn-filtro btn-promo" data-filtro="promocion" onclick="filtrarCategoria('promocion', this)">% Ofertas</button>
+        </nav>
+    </header>
+
+    <!-- Banner Principal -->
+    <section class="banner-promos">
+        <div class="promo-content">
+            <h2>Fragancias que Definen tu Estilo</h2>
+            <p>Explora colecciones exclusivas originales y calidad 1.1</p>
+        </div>
+    </section>
+
+    <!-- Canasta de Compras Lateral (Sidebar) -->
+    <div id="carrito-sidebar" class="carrito-sidebar">
+        <div class="carrito-header">
+            <h3>Tu Canasta</h3>
+            <button class="btn-cerrar" onclick="toggleCarrito()">&times;</button>
+        </div>
+        <div id="carrito-items" class="carrito-items">
+            <!-- Los productos agregados se generan aquí dinámicamente -->
+            <p class="carrito-vacio">Tu canasta está vacía.</p>
+        </div>
+        <div class="carrito-footer">
+            <div class="total-contenedor">
+                <span>Total Estimado:</span>
+                <span id="total-precio">$0</span>
+            </div>
+            <div class="carrito-acciones">
+                <button class="btn-vaciar" onclick="vaciarCarrito()">Vaciar</button>
+                <button class="btn-pagar" onclick="enviarWhatsApp()">Confirmar Pedido (WhatsApp)</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Contenedor del Catálogo -->
+    <main>
+        <div class="main-header">
+            <h2 id="titulo-seccion">Todos los Perfumes</h2>
+            <!-- Este párrafo mostrará cuántas fragancias se encontraron al buscar o filtrar -->
+            <p id="contador-resultados" class="contador-resultados"></p>
+        </div>
+        <div class="catalogo-grid" id="catalogo">
+            <!-- Las tarjetas de los perfumes se cargarán aquí desde el script.js -->
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 AromaPremium | Diseñado con elegancia y estilo.</p>
+    </footer>
+
+    <script src="/js/js.js"></script>
+</body>
+</html>
